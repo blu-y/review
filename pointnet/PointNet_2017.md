@@ -44,15 +44,15 @@ Unordered, interation among points(not isolated, combinatorial interactions), in
 
 <img src="src/fig2.png" width="700"/>
 
-Three key modules: max pooling layer(as a symmetric function to aggregate information from all points), local and global information combination structure, two joint alignment networks(align both input points and point features)  
-  
+Three key modules: max pooling layer(as a symmetric function to aggregate information from all points), local and global information combination structure, two joint alignment networks(align both input points and point features)
+
 1. Symmetry Function for Unordered Input: (to make model invariant to input permutation) sort input into canonical order, treat input as a sequence to train an RNN, use simple symmetric function to aggregate the info from each point. Sorting X(MLP with sorted input is slightly better than MLP without sorting but both poor). RNN X (randomly permuted sequential signal, hard to scale thousands of input elements). --> apply symmetric function (1) f(x1, x2, ..., xn) ~= g(h(x1), ..., h(xn)) h(MLP) g(single variable func and max pooling func) ==> output is vector [f1, ..., fk], global signature of the input set
 
 <img src="src/eqn1.png" width="350"/>
 
-2. Local and Global Information Aggregation: train SVM or MLP classifier global features. feed global feature back to per point features by concatenating the global feature with each of the point features(nx1088 = {nx64, nx1024}). --> extract new per point features(aware of both local and global info, nx128) based on the combined point features
+2. Local and Global Information Aggregation: train SVM or MLP classifier global features. feed global feature back to per point features by concatenating the global feature with each of the point features(nx1088 = {nx64, nx1024}). --> extract new per point features(aware of both local and global info, nx128) based on the combined point features  
 
-3. Joint Alignment Network: 
+3. Joint Alignment Network:
 
 #### 4.3 Theoretical Analysis
 
@@ -62,10 +62,11 @@ Three key modules: max pooling layer(as a symmetric function to aggregate inform
 
 #### 5.2 Architecture Design Analysis
 
-#### 5.3 
+#### 5.3 Visualizing PointNet
 
+#### 5.4 Time and Space Complexity Analysis
 
-
+### **6. Conclusion**
 
 <!--
 #### **Studies**
