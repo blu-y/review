@@ -51,7 +51,6 @@ Three key modules: max pooling layer(as a symmetric function to aggregate inform
 
 * Joint Alignment Network: Semantic labeling has to be invariant to geometric transformations. Expect that the learnt representation by point set is invariant to transformations. Natural solution is to align all input set to a canonical space before feature extraction. Apply input coordinates directly to an affine transformation matrix(T-Net) composed by basic modules of point independent feature extraction, max pooling and fully connected layers. To prevent increasing difficulty of optimization due to higher dimension, it added a regularization term to its softmax training loss. It constrain the feature transformation matrix to be close to orthogonal matrix(will not lose information):  
 <center><img src="src/eqn2.png" width="350"/></center>  
-![1678954642757](image/PointNet_2017/1678954642757.png)
 
 #### 4.3 Theoretical Analysis
 
