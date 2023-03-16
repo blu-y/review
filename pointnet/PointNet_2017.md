@@ -21,10 +21,10 @@ Illustrate the 3D features computed by the selected neurons in the net and devel
 
 PC Features: handcrafted towards specific tasks. intrinsic or extrinsic, local or global features. not trivial to find the optimal feature combination.  
 DL on 3D Data:  
- - Volumetric CNNs(3D conv NN on voxelized shapes, volumetric representation is constrained by its resolution due to sparsity and computation cost)  
- - Multiview CNNs(render 3D PC to 2D images, nontrivial to extent them to scene understanding, point classification or shape completion)  
- - Spectral CNNs(constrained on manifold meshes such as organic objects, not obvious how to extend them to non-isometric shapes such as furniture)  
- - Feature-based DNNs(convert 3D data into a vector, extract traditional shape features, constrained by the representation power)  
+- Volumetric CNNs(3D conv NN on voxelized shapes, volumetric representation is constrained by its resolution due to sparsity and computation cost)  
+- Multiview CNNs(render 3D PC to 2D images, nontrivial to extent them to scene understanding, point classification or shape completion)  
+- Spectral CNNs(constrained on manifold meshes such as organic objects, not obvious how to extend them to non-isometric shapes such as furniture)  
+- Feature-based DNNs(convert 3D data into a vector, extract traditional shape features, constrained by the representation power)  
 DL on Unordered Sets: PC is an unordered set of vectors. Most works in DL focus on regular input(images, video or 3D data) not on point sets.  
 
 ### **3. Problem Statement**
@@ -44,17 +44,27 @@ Unordered, interation among points(not isolated, combinatorial interactions), in
 
 Three key modules: max pooling layer(as a symmetric function to aggregate information from all points), local and global information combination structure, two joint alignment networks(align both input points and point features)  
 
-* Symmetry Function for Unordered Input: (to make model invariant to input permutation) sort input into canonical order, treat input as a sequence to train an RNN, use simple symmetric function to aggregate the info from each point. Sorting X(MLP with sorted input is slightly better than MLP without sorting but both poor). RNN X (randomly permuted sequential signal, hard to scale thousands of input elements). --> apply symmetric function (1) f(x1, x2, ..., xn) ~= g(h(x1), ..., h(xn)) h(MLP) g(single variable func and max pooling func) ==> output is vector [f1, ..., fk], global signature of the input set  
+* Symmetry Function for Unordered Input: (to make model invariant to input permutation) sort input into canonical order, treat input as a sequence to train an RNN, use simple symmetric function to aggregate the info from each point. Sorting X(MLP with sorted input is slightly better than MLP without sorting but both poor). RNN X (randomly permuted sequential signal, hard to scale thousands of input elements). --> apply symmetric function (1) f(x1, x2, ..., xn) ~= g(h(x1), ..., h(xn)) h(MLP) g(single variable func and max pooling func) ==> output is vector [f1, ..., fk], global signature of the input set.  
 <center><img src="src/eqn1.png" width="350"/></center>
 
-* Local and Global Information Aggregation: train SVM or MLP classifier global features. feed global feature back to per point features by concatenating the global feature with each of the point features(nx1088 = {nx64, nx1024}). --> extract new per point features(aware of both local and global info, nx128) based on the combined point features  
+* Local and Global Information Aggregation: Train SVM or MLP classifier global features. Feed global feature back to per point features by concatenating the global feature with each of the point features(nx1088 = {nx64, nx1024}). --> extract new per point features(aware of both local and global info, nx128) based on the combined point features(segmentation network).  
 
-* Joint Alignment Network:
+* Joint Alignment Network: Semantic labeling has to be invariant to geometric transformations. Expect that the learnt representation by point set is invariant to transformations. Natural solution is to align all input set to a canonical space before feature extraction. Apply input coordinates directly to an affine transformation matrix(T-Net) composed by basic modules of point independent feature extraction, max pooling and fully connected layers. To prevent increasing difficulty of optimization due to higher dimension, it added a regularization term to its softmax training loss. It constrain the feature transformation matrix to be close to orthogonal matrix(will not lose information):  
+<center><img src="src/eqn2.png" width="350"/></center>  
+![1678954642757](image/PointNet_2017/1678954642757.png)
 
 #### 4.3 Theoretical Analysis
 
+* Universal approximation: By the continuity of set functions, intuitively, a small perturbation to the input point set should not greatly change the function values, such as classification or segmentation scores.  
+<center><img src="src/thr1.png" width="350"/></center>  
+
+* Bottleneck dimension and stability: Small corruptions or extra noise points in the input set are not likely to change the output of our network.  
+<center><img src="src/thr2.png" width="350"/></center>  
+(a) says that f(S) is unchanged up to the input corruption if all points in Cs are preserved and also unchanged with extra noise points up to Ns. (b) says that Cs only contains a bounded number of points, determined by a finite subset Cs(critical point set of S) of less or equal to K(bottleneck dimension of f) elements.
+
 ### **5. Experiment**
 
+<!--
 #### 5.1 Applications
 
 #### 5.2 Architecture Design Analysis
@@ -62,8 +72,10 @@ Three key modules: max pooling layer(as a symmetric function to aggregate inform
 #### 5.3 Visualizing PointNet
 
 #### 5.4 Time and Space Complexity Analysis
-
+-->
 ### **6. Conclusion**
+
+Paper propose a novel DNN PointNet that directly consumes point cloud and provides 3D recognition tasks including classification, part segmentation and semantic segmentation while obtaining on par or better results than state of the arts.
 
 <!--
 #### **Studies**
