@@ -76,12 +76,5 @@ Three key modules: max pooling layer(as a symmetric function to aggregate inform
 
 Paper propose a novel DNN PointNet that directly consumes point cloud and provides 3D recognition tasks including classification, part segmentation and semantic segmentation while obtaining on par or better results than state of the arts.
 
-<!--
-#### **Studies**
-[PointNet](https://github.com/blu-y/note/tree/main/Studies/PointNet/)
-
-[NeRF](https://github.com/blu-y/note/tree/main/Studies/NeRF/)
--->
-
-### Demo (PointNet++)  
+#### Demo (PointNet++)  
 <center><img src="src/demo.png" width="700"/></center>  
