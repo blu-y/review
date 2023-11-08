@@ -75,3 +75,8 @@ tensor(128.5917) tensor(126.6558) tensor(75.3380) tensor(62.2714) tensor(60.0455
 tensor(38.8700) tensor(86.6340) tensor(96.1532) tensor(70.9965)
 tensor(42.0420) tensor(78.9529) tensor(69.5386) tensor(34.0043)
 """
+엔트로피 transfer entropy. causation entropy. data 늘리기
+
+https://www.google.com/search?q=Autonomous+Image-based+Exploration+for+Mobile+Robot+Navigation&rlz=1C1YTUH_koKR1031KR1031&oq=Autonomous+Image-based+Exploration+for+Mobile+Robot+Navigation&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg80gEHMjc5ajBqNKgCALACAA&sourceid=chrome&ie=UTF-8
+
+https://arxiv.org/pdf/2305.17783.pdf
